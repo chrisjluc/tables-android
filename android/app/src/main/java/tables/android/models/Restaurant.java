@@ -5,13 +5,15 @@ import android.location.Location;
 public class Restaurant {
     private String restaurantName;
     private String restaurantDescription;
+    private String restaurantType;
     private String address;
     private Location location;
     private RestaurantMenu restaurantMenu;
 
-    public Restaurant(String restaurantName, String restaurantDescription, Location location, RestaurantMenu restaurantMenu, String address) {
+    public Restaurant(String restaurantName, String restaurantDescription, String restaurantType, Location location, RestaurantMenu restaurantMenu, String address) {
         this.restaurantName = restaurantName;
         this.restaurantDescription = restaurantDescription;
+        this.restaurantType = restaurantType;
         this.location = location;
         this.restaurantMenu = restaurantMenu;
         this.address = address;
@@ -31,6 +33,14 @@ public class Restaurant {
 
     public void setRestaurantDescription(String restaurantDescription) {
         this.restaurantDescription = restaurantDescription;
+    }
+
+    public String getRestaurantType() {
+        return restaurantType;
+    }
+
+    public void setRestaurantType(String restaurantType) {
+        this.restaurantType = restaurantType;
     }
 
     public Location getLocation() {

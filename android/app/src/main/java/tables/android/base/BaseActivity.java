@@ -1,7 +1,7 @@
 package tables.android.base;
 
 import android.app.Activity;
-import android.content.Context;
+import android.os.Bundle;
 
 import tables.android.framework.VisibilityManager;
 
@@ -14,6 +14,10 @@ import tables.android.framework.VisibilityManager;
  * [1]: http://stackoverflow.com/questions/18038399/how-to-check-if-activity-is-in-foreground-or-in-visible-background
  */
 public class BaseActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void onResume() {

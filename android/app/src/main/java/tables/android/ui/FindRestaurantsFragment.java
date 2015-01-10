@@ -50,13 +50,13 @@ public class FindRestaurantsFragment extends Fragment {
 
         // specify an adapter (see also next example)
         Restaurant[] rest = new Restaurant[7];
-        rest[0] = new Restaurant("test1", null, null, null, null);
-        rest[1] = new Restaurant("test2", null, null, null, null);
-        rest[2] = new Restaurant("test3", null, null, null, null);
-        rest[3] = new Restaurant("test4", null, null, null, null);
-        rest[4] = new Restaurant("test5", null, null, null, null);
-        rest[5] = new Restaurant("test6", null, null, null, null);
-        rest[6] = new Restaurant("test7", null, null, null, null);
+        rest[0] = new Restaurant("test1", null, null, null, null, null);
+        rest[1] = new Restaurant("test2", null, null, null, null, null);
+        rest[2] = new Restaurant("test3", null, null, null, null, null);
+        rest[3] = new Restaurant("test4", null, null, null, null, null);
+        rest[4] = new Restaurant("test5", null, null, null, null, null);
+        rest[5] = new Restaurant("test6", null, null, null, null, null);
+        rest[6] = new Restaurant("test7", null, null, null, null, null);
 
 
         mAdapter = new RestaurantsAdapter(rest, mActivity);

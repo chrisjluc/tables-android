@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="translucent_black">#99000000</color>
+    <color name="facebook_blue">#1C3DA5</color>
+    <color name="tables_green">#2aba53</color>
+    <color name="tables_green_dark">#16a63f</color>
+    <color name="tables_black">#282828</color>
+    <color name="tables_black_dark">#141414</color>
+    <color name="tables_dark_grey">#464646</color>
+    <color name="tables_dark_grey_dark">#323232</color>
+    <color name="tables_grey">#969696</color>
+    <color name="tables_grey_dark">#828282</color>
+    <color name="tables_white_background">#f0f0f0</color>
 </resources>
