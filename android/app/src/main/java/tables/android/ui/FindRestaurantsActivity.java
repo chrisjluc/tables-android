@@ -1,10 +1,11 @@
 package tables.android.ui;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.ParseUser;
 
 import tables.android.R;
 import tables.android.base.BaseActivity;
@@ -26,23 +27,21 @@ public class FindRestaurantsActivity extends BaseActivity implements FindRestaur
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.find, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_log_out:
+                ParseUser.logOut();
+                Intent i = new Intent(getApplicationContext(), IntroActivity.class);
+                startActivity(i);
+                finish();
+                finishActivity(2);
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

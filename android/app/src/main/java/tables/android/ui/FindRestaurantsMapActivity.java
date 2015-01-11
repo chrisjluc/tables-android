@@ -27,6 +27,8 @@ public class FindRestaurantsMapActivity extends BaseFragmentActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        if (getActionBar() != null)
+            getActionBar().hide();
         mLocationClient = new LocationClient(this, this, this);
     }
 
@@ -56,7 +58,7 @@ public class FindRestaurantsMapActivity extends BaseFragmentActivity implements 
     }
 
     private void setUpMap() {
-        if(mCurrentLocation == null)
+        if (mCurrentLocation == null)
             mCurrentLocation = mLocationClient.getLastLocation();
         LatLng latLng = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location"));

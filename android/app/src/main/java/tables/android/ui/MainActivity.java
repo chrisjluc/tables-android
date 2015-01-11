@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.parse.ParseUser;
+
 import tables.android.R;
 import tables.android.base.BaseActivity;
 
@@ -30,26 +32,22 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent mActivity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_log_out:
+                ParseUser.logOut();
+                Intent i = new Intent(getApplicationContext(), IntroActivity.class);
+                startActivity(i);
+                finish();
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -61,7 +59,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             mActivity = getActivity();
@@ -70,7 +68,7 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mActivity, FindRestaurantsActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, 2);
                 }
             });
             mCheckInButton = (Button) rootView.findViewById(R.id.check_in_button);

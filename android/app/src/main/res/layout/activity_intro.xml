@@ -20,7 +20,7 @@
             android:layout_gravity="center" />
 
 
-        <Button
+        <tables.android.ui.components.TablesButton
             android:layout_width="fill_parent"
             android:background="@color/facebook_blue"
             android:layout_height="@dimen/button_large_height"
@@ -28,7 +28,7 @@
             android:id="@+id/connectFacebookButton"
             android:layout_above="@+id/signupEmailButton" />
 
-        <Button
+        <tables.android.ui.components.TablesButton
             android:layout_width="fill_parent"
             android:padding="0dp"
             android:layout_height="@dimen/button_large_height"
@@ -44,21 +44,23 @@
             android:layout_marginBottom="60dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true">
-            <TextView
+
+            <tables.android.ui.components.TablesTextView
                 android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already have an account?"/>
-            <TextView
+                android:text="Already have an account?" />
+
+            <tables.android.ui.components.TablesTextView
                 android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text=" Sign in"
-                android:id="@+id/signinTextView"/>
+                android:id="@+id/signinTextView" />
         </LinearLayout>
 
-        <TextView
+        <tables.android.ui.components.TablesTextView
             android:textColor="@android:color/white"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_width="wrap_content"
@@ -67,6 +69,18 @@
             android:text="Take a tour"
             android:id="@+id/tourTextView"
             android:layout_alignParentBottom="true" />
+
+        <tables.android.ui.components.TablesTextView
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="48dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/appNameTextView"
+            android:text="@string/app_name"
+            android:layout_above="@+id/connectFacebookButton"
+            android:layout_marginBottom="80dp"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

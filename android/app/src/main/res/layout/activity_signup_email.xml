@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tables_white_background"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -10,7 +9,7 @@
     tools:context="tables.android.ui.SignupEmailActivity">
 
 
-    <TextView
+    <tables.android.ui.components.TablesTextView
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -22,7 +21,9 @@
         android:layout_alignTop="@+id/nameEditText"
         android:layout_alignBottom="@+id/nameEditText" />
 
-    <EditText
+    <tables.android.ui.components.TablesEditText
+        android:textSize="14sp"
+        android:hint="First Last"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/nameEditText"
@@ -30,7 +31,7 @@
         android:layout_toEndOf="@+id/nameTextView"/>
 
 
-    <TextView
+    <tables.android.ui.components.TablesTextView
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +44,9 @@
         android:layout_below="@+id/nameTextView"
         android:layout_alignBottom="@+id/emailEditText" />
 
-    <EditText
+    <tables.android.ui.components.TablesEditText
+        android:textSize="14sp"
+        android:hint="name@example.com"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -54,7 +57,7 @@
         android:layout_below="@+id/nameTextView" />
 
 
-    <TextView
+    <tables.android.ui.components.TablesTextView
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,7 +67,9 @@
         android:layout_below="@+id/emailTextView"
         android:layout_alignBottom="@+id/passwordEditText" />
 
-    <EditText
+    <tables.android.ui.components.TablesEditText
+        android:textSize="14sp"
+        android:hint="Minimum 6 characters"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
@@ -80,12 +85,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <tables.android.ui.components.TablesTextView
             android:layout_width="fill_parent"
             android:gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:text="By signing up you are agreeing to the" />
-        <TextView
+        <tables.android.ui.components.TablesTextView
             android:layout_width="fill_parent"
             android:gravity="center_horizontal"
             android:layout_height="wrap_content"
@@ -94,7 +99,7 @@
             android:text="Terms and Conditions" />
     </LinearLayout>
 
-    <Button
+    <tables.android.ui.components.TablesButton
         android:height="@dimen/button_large_height"
         android:background="@color/tables_green"
         android:layout_width="wrap_content"
