@@ -1,6 +1,7 @@
 package tables.android.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,8 @@ public class SignupEmailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        final ProgressDialog dialog = ProgressDialog.show(
+                SignupEmailActivity.this, "", "Signing up...", true);
         switch (v.getId()) {
             case R.id.signupButton:
                 String name = mNameEditText.getText().toString();
@@ -81,5 +84,6 @@ public class SignupEmailActivity extends BaseActivity implements View.OnClickLis
                 });
                 break;
         }
+        dialog.dismiss();
     }
 }

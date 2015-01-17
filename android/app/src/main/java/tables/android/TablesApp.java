@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 
-public class TablesApp extends Application{
+public class TablesApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
