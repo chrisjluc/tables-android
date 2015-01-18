@@ -12,6 +12,7 @@
         android:layout_width="fill_parent"
         android:background="@color/facebook_blue"
         android:layout_height="@dimen/button_large_height"
+        android:textColor="@android:color/white"
         android:text="Sign in with Facebook"
         android:id="@+id/signinFacebookButton" />
 
@@ -78,6 +79,7 @@
     <tables.android.ui.components.TablesButton
         android:height="@dimen/button_large_height"
         android:background="@color/tables_green"
+        android:textColor="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SIGN IN"

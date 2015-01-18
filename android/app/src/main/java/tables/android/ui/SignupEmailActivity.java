@@ -70,7 +70,7 @@ public class SignupEmailActivity extends BaseActivity implements View.OnClickLis
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent i = new Intent(getApplicationContext(), FindRestaurantsActivity.class);
                             startActivity(i);
                             Intent resultIntent = new Intent(getApplicationContext(), IntroActivity.class);
                             setResult(Activity.RESULT_OK, resultIntent);

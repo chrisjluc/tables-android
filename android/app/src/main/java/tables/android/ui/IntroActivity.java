@@ -35,7 +35,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            Intent i = new Intent(getApplicationContext(), FindRestaurantsActivity.class);
             startActivity(i);
             finish();
         }
@@ -78,7 +78,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                                     Log.d(TAG, err.toString());
 
                                 } else {
-                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent i = new Intent(getApplicationContext(), FindRestaurantsActivity.class);
                                     startActivity(i);
                                     finish();
                                 }

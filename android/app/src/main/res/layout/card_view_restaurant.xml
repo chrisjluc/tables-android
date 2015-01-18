@@ -4,28 +4,34 @@
     android:layout_gravity="center"
     android:layout_width="fill_parent"
     android:layout_height="128dp"
-    android:layout_margin="4dp"
-    card_view:cardElevation="2dp">
+    android:layout_marginBottom="1dp"
+    card_view:cardElevation="4dp"
+    card_view:cardCornerRadius="0dp" >
        <RelativeLayout
            android:layout_width="fill_parent"
            android:layout_height="fill_parent">
-
+           <ImageView
+               android:id="@+id/restaurantCoverPhotoImageView"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent" />
            <LinearLayout
                android:orientation="vertical"
                android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
+               android:layout_height="fill_parent"
                android:layout_alignParentBottom="true"
                android:background="@color/translucent_black"
                >
                <tables.android.ui.components.TablesTextView
                    android:id="@+id/restaurant_name_text_view"
                    android:text="Restaurant Name"
+                   android:textColor="@android:color/white"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center_horizontal" />
                <tables.android.ui.components.TablesTextView
                    android:id="@+id/restaurant_location_text_view"
                    android:text="Restaurant Location"
+                   android:textColor="@android:color/white"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center_horizontal" />

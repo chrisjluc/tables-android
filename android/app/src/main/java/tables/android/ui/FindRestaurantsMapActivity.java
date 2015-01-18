@@ -1,5 +1,6 @@
 package tables.android.ui;
 
+import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -73,11 +74,9 @@ public class FindRestaurantsMapActivity extends BaseFragmentActivity implements 
 
     @Override
     public void onDisconnected() {
-
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
     }
 }

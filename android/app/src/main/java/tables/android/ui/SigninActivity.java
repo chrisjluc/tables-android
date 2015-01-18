@@ -55,7 +55,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
                                     Toast.makeText(getApplicationContext(), "Something went wrong, please try again later.", Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, err.toString());
                                 } else {
-                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent i = new Intent(getApplicationContext(), FindRestaurantsActivity.class);
                                     startActivity(i);
                                     finish();
                                 }
@@ -82,7 +82,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
                     public void done(ParseUser parseUser, ParseException e) {
                         signinDialog.hide();
                         if (e == null) {
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent i = new Intent(getApplicationContext(), FindRestaurantsActivity.class);
                             startActivity(i);
                             Intent resultIntent = new Intent(getApplicationContext(), IntroActivity.class);
                             setResult(Activity.RESULT_OK, resultIntent);

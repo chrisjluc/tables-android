@@ -25,6 +25,7 @@
             android:background="@color/facebook_blue"
             android:layout_height="@dimen/button_large_height"
             android:text="Connect with Facebook"
+            android:textColor="@android:color/white"
             android:id="@+id/connectFacebookButton"
             android:layout_above="@+id/signupEmailButton" />
 
