@@ -52,8 +52,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 mp.setLooping(true);
             }
         });
-        TextView appNameTextView = (TextView) findViewById(R.id.appNameTextView);
-        appNameTextView.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Bariol_Bold.otf"));
         Button connectFacebookButton = (Button) findViewById(R.id.connectFacebookButton);
         connectFacebookButton.setOnClickListener(this);
         Button signupEmailButton = (Button) findViewById(R.id.signupEmailButton);

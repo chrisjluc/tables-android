@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentActivity;
 
 import tables.android.framework.VisibilityManager;
 
-public class BaseFragmentActivity extends FragmentActivity{
+public class BaseFragmentActivity extends FragmentActivity {
 
     @Override
     protected void onResume() {

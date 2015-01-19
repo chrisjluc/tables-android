@@ -1,6 +1,5 @@
 package tables.android.ui;
 
-import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.Bundle;
 
