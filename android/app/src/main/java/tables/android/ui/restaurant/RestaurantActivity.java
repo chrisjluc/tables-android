@@ -12,6 +12,8 @@ import tables.android.base.BaseActivity;
 import tables.android.framework.BitmapManager;
 import tables.android.models.Restaurant;
 import tables.android.ui.Constants;
+import tables.android.ui.ProfileActivity;
+import tables.android.utils.SdkUtils;
 
 public class RestaurantActivity extends BaseActivity implements View.OnClickListener {
 
@@ -43,9 +45,10 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
 
         // TODO: Get restaurant here
 
-        if (getActionBar() != null)
+        if (getActionBar() != null) {
             getActionBar().setTitle("Restaurant Name");
-
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         ImageView restaurantCoverPhotoImageView = (ImageView) findViewById(R.id.restaurantCoverPhotoImageView);
 
         String link1 = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
@@ -67,7 +70,12 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         int id = item.getItemId();
 
         if (id == R.id.profileButton) {
-
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == android.R.id.home) {
+            if (SdkUtils.supportsLollipop())
+                finishAfterTransition();
             return true;
         }
         return super.onOptionsItemSelected(item);

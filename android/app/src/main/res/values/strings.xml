@@ -14,6 +14,6 @@
 
     <!-- app -->
     <string name="transition_restaurant_cover_photo">RestaurantCoverPhotoTransition</string>
-
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

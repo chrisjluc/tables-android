@@ -58,9 +58,13 @@ public class FindRestaurantsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.mapButton:
-                Intent intent = new Intent(this, FindRestaurantsMapActivity.class);
+                intent = new Intent(this, FindRestaurantsMapActivity.class);
+                startActivity(intent);
+            case R.id.profileButton:
+                intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
 
 //            case R.id.action_log_out:

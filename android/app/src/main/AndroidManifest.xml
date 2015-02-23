@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="tables.android" >
+    package="tables.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,10 +17,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity android:name=".ui.FindRestaurantsActivity" />
         <activity android:name=".ui.FindRestaurantsMapActivity" />
-        <activity android:name=".ui.intro.IntroActivity" >
+        <activity android:name=".ui.intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,12 +49,14 @@
 
         <activity
             android:name=".ui.restaurant.RestaurantActivity"
-            android:label="@string/title_activity_restaurant" >
-        </activity>
+            android:label="@string/title_activity_restaurant"></activity>
+
         <activity
             android:name=".ui.restaurant.RestaurantMenuActivity"
-            android:label="@string/title_activity_restaurant_menu" >
-        </activity>
+            android:label="@string/title_activity_restaurant_menu"></activity>
+        <activity
+            android:name=".ui.ProfileActivity"
+            android:label="@string/title_activity_profile"></activity>
     </application>
 
 </manifest>
