@@ -1,4 +1,4 @@
-package tables.android.ui;
+package tables.android.ui.intro;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -15,6 +15,7 @@ import com.parse.SignUpCallback;
 
 import tables.android.R;
 import tables.android.base.BaseActivity;
+import tables.android.ui.FindRestaurantsActivity;
 import tables.android.utils.EmailUtils;
 
 public class SignupEmailActivity extends BaseActivity implements View.OnClickListener {

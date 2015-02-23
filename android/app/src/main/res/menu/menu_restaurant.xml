@@ -5,8 +5,4 @@
         android:icon="@drawable/profile_button"
         android:title="Profile"
         android:showAsAction="ifRoom" />
-    <item android:id="@+id/mapButton"
-        android:icon="@drawable/map_button"
-        android:title="Map"
-        android:showAsAction="ifRoom" />
 </menu>

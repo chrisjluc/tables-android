@@ -15,6 +15,7 @@
         <ImageView
             android:id="@+id/restaurantCoverPhotoImageView"
             android:adjustViewBounds="true"
+            android:transitionName="@string/transition_restaurant_cover_photo"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -1,9 +1,7 @@
-package tables.android.ui;
+package tables.android.ui.intro;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +21,7 @@ import java.util.Arrays;
 
 import tables.android.R;
 import tables.android.base.BaseActivity;
+import tables.android.ui.FindRestaurantsActivity;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 

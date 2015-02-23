@@ -3,6 +3,7 @@ package tables.android.models;
 import android.location.Location;
 
 public class Restaurant {
+    private long id;
     private String restaurantName;
     private String restaurantDescription;
     private String restaurantType;
@@ -19,6 +20,14 @@ public class Restaurant {
         this.address = address;
         this.location = location;
         this.restaurantMenu = restaurantMenu;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getRestaurantName() {

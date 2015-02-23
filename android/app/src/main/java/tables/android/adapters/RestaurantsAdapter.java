@@ -1,6 +1,9 @@
 package tables.android.adapters;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +15,8 @@ import android.widget.TextView;
 import tables.android.R;
 import tables.android.framework.BitmapManager;
 import tables.android.models.Restaurant;
+import tables.android.ui.Constants;
+import tables.android.ui.restaurant.RestaurantActivity;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
     private final static String TAG = "RestaurantsAdapter";
@@ -49,7 +54,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         TextView restaurantNameTextView = (TextView) holder.mCardView.findViewById(R.id.restaurantNameTextView);
         if (r.getRestaurantName() != null)
             restaurantNameTextView.setText(r.getRestaurantName());
-        ImageView restaurantCoverPhotoImageView = (ImageView) holder.mCardView.findViewById(R.id.restaurantCoverPhotoImageView);
+        final ImageView restaurantCoverPhotoImageView = (ImageView) holder.mCardView.findViewById(R.id.restaurantCoverPhotoImageView);
         if (r.getRestaurantCoverPhotoLink() != null) {
             mBitmapManager.loadBitmap(r.getRestaurantCoverPhotoLink(), restaurantCoverPhotoImageView);
         }
@@ -60,8 +65,18 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(mActivity, FindRestaurantsActivity.class);
-//                mActivity.startActivity(intent);
+                Intent intent = new Intent(mActivity, RestaurantActivity.class);
+                intent.putExtra(Constants.CHECKED_IN, false);
+                intent.putExtra(Constants.RESTAURANT_ID, mRestaurants[position].getId());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                            mActivity,
+                            restaurantCoverPhotoImageView,
+                            mActivity.getResources().getString(R.string.transition_restaurant_cover_photo));
+                    mActivity.startActivity(intent, options.toBundle());
+                } else {
+                    mActivity.startActivity(intent);
+                }
             }
         });
     }

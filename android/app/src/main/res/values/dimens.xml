@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="button_standard_height">48dp</dimen>
     <dimen name="button_large_height">64dp</dimen>
+
+    <dimen name="restaurant_menu_item_height">64dp</dimen>
+
 </resources>

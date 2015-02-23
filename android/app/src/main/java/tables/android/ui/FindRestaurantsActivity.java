@@ -8,9 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import tables.android.R;
+import tables.android.adapters.RestaurantsAdapter;
 import tables.android.base.BaseActivity;
 import tables.android.models.Restaurant;
-import tables.android.adapters.RestaurantsAdapter;
 
 public class FindRestaurantsActivity extends BaseActivity {
 
@@ -30,15 +30,20 @@ public class FindRestaurantsActivity extends BaseActivity {
         mRestaurantRecyclerView.setHasFixedSize(true);
 
         // specify an adapter (see also next example)
-        Restaurant[] rest = new Restaurant[7];
-        String link = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
+        Restaurant[] rest = new Restaurant[11];
+        String link1 = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
+        String link = "https://d13yacurqjgara.cloudfront.net/users/434375/screenshots/1887010/city_logo.jpg";
         rest[0] = new Restaurant("test1", null, null, link, null, null, null);
-        rest[1] = new Restaurant("test2", null, null, link, null, null, null);
+        rest[1] = new Restaurant("test2", null, null, link1, null, null, null);
         rest[2] = new Restaurant("test3", null, null, link, null, null, null);
-        rest[3] = new Restaurant("test4", null, null, link, null, null, null);
+        rest[3] = new Restaurant("test4", null, null, link1, null, null, null);
         rest[4] = new Restaurant("test5", null, null, link, null, null, null);
-        rest[5] = new Restaurant("test6", null, null, link, null, null, null);
+        rest[5] = new Restaurant("test6", null, null, link1, null, null, null);
         rest[6] = new Restaurant("test7", null, null, link, null, null, null);
+        rest[7] = new Restaurant("test8", null, null, link1, null, null, null);
+        rest[8] = new Restaurant("test9", null, null, link, null, null, null);
+        rest[9] = new Restaurant("test10", null, null, link1, null, null, null);
+        rest[10] = new Restaurant("test11", null, null, link, null, null, null);
 
 
         mAdapter = new RestaurantsAdapter(rest, this);
@@ -47,7 +52,7 @@ public class FindRestaurantsActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.find, menu);
+        getMenuInflater().inflate(R.menu.menu_find, menu);
         return true;
     }
 

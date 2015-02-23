@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="tables.android">
+    package="tables.android" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,15 +13,14 @@
         android:required="true" />
 
     <application
+        android:name=".TablesApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".TablesApp">
-
-        <activity android:name=".ui.FindRestaurantsActivity"></activity>
-        <activity android:name=".ui.FindRestaurantsMapActivity"></activity>
-        <activity android:name=".ui.IntroActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".ui.FindRestaurantsActivity" />
+        <activity android:name=".ui.FindRestaurantsMapActivity" />
+        <activity android:name=".ui.intro.IntroActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,14 +28,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.SignupEmailActivity"
-            android:label="@string/title_activity_signup_email"></activity>
+            android:name=".ui.intro.SignupEmailActivity"
+            android:label="@string/title_activity_signup_email" />
         <activity
-            android:name=".ui.SigninActivity"
-            android:label="@string/title_activity_signin"></activity>
+            android:name=".ui.intro.SigninActivity"
+            android:label="@string/title_activity_signin" />
         <activity
             android:name="com.facebook.LoginActivity"
-            android:label="Facebook Login"></activity>
+            android:label="Facebook Login" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -47,6 +46,15 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB-nz-KTvAmQDuubqj-DU9HcoiHcN4ue8g" />
+
+        <activity
+            android:name=".ui.restaurant.RestaurantActivity"
+            android:label="@string/title_activity_restaurant" >
+        </activity>
+        <activity
+            android:name=".ui.restaurant.RestaurantMenuActivity"
+            android:label="@string/title_activity_restaurant_menu" >
+        </activity>
     </application>
 
 </manifest>
