@@ -68,6 +68,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 Intent intent = new Intent(mActivity, RestaurantActivity.class);
                 intent.putExtra(Constants.CHECKED_IN, false);
                 intent.putExtra(Constants.RESTAURANT_ID, mRestaurants[position].getId());
+                intent.putExtra(Constants.RESTAURANT_NAME, mRestaurants[position].getRestaurantName());
                 if (SdkUtils.supportsLollipop()) {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                             mActivity,

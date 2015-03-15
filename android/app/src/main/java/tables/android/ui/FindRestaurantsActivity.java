@@ -1,24 +1,42 @@
 package tables.android.ui;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import tables.android.R;
 import tables.android.adapters.RestaurantsAdapter;
 import tables.android.base.BaseActivity;
 import tables.android.models.Restaurant;
 
-public class FindRestaurantsActivity extends BaseActivity {
+public class FindRestaurantsActivity extends BaseActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
     private static final String TAG = "FindRestaurantsActivity";
 
     private RecyclerView mRestaurantRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private LocationClient mLocationClient;
+    private Location mCurrentLocation;
+    private FindRestaurantsActivity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +46,35 @@ public class FindRestaurantsActivity extends BaseActivity {
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRestaurantRecyclerView.setLayoutManager(mLayoutManager);
         mRestaurantRecyclerView.setHasFixedSize(true);
-
-        // specify an adapter (see also next example)
-        Restaurant[] rest = new Restaurant[11];
-        String link1 = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
-        String link = "https://d13yacurqjgara.cloudfront.net/users/434375/screenshots/1887010/city_logo.jpg";
-        rest[0] = new Restaurant("test1", null, null, link, null, null, null);
-        rest[1] = new Restaurant("test2", null, null, link1, null, null, null);
-        rest[2] = new Restaurant("test3", null, null, link, null, null, null);
-        rest[3] = new Restaurant("test4", null, null, link1, null, null, null);
-        rest[4] = new Restaurant("test5", null, null, link, null, null, null);
-        rest[5] = new Restaurant("test6", null, null, link1, null, null, null);
-        rest[6] = new Restaurant("test7", null, null, link, null, null, null);
-        rest[7] = new Restaurant("test8", null, null, link1, null, null, null);
-        rest[8] = new Restaurant("test9", null, null, link, null, null, null);
-        rest[9] = new Restaurant("test10", null, null, link1, null, null, null);
-        rest[10] = new Restaurant("test11", null, null, link, null, null, null);
+        mActivity = this;
+        mLocationClient = new LocationClient(this, this, this);
 
 
-        mAdapter = new RestaurantsAdapter(rest, this);
-        mRestaurantRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void requestRestaurants() {
+        mCurrentLocation = mLocationClient.getLastLocation();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("radius", Constants.RADIUS_KM);
+        ParseGeoPoint point = new ParseGeoPoint(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        params.put("geoPoint", point);
+        ParseCloud.callFunctionInBackground("findNearbyRestaurants", params, new FunctionCallback<ArrayList<ParseObject>>() {
+            public void done(ArrayList<ParseObject> results, ParseException e) {
+                if (e == null) {
+                    Restaurant[] restaurants = new Restaurant[results.size()];
+                    for (int i = 0; i < results.size(); i++) {
+                        restaurants[i] = Restaurant.fromParseObject(results.get(i));
+                    }
+                    mAdapter = new RestaurantsAdapter(restaurants, mActivity);
+                    mRestaurantRecyclerView.setAdapter(mAdapter);
+
+                    mRestaurantRecyclerView.setVisibility(View.VISIBLE);
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -58,15 +85,13 @@ public class FindRestaurantsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
+        Intent intent = null;
         switch (item.getItemId()) {
             case R.id.mapButton:
                 intent = new Intent(this, FindRestaurantsMapActivity.class);
-                startActivity(intent);
                 break;
             case R.id.profileButton:
                 intent = new Intent(this, ProfileActivity.class);
-                startActivity(intent);
                 break;
 
 //            case R.id.action_log_out:
@@ -77,6 +102,39 @@ public class FindRestaurantsActivity extends BaseActivity {
 //                finishActivity(2);
 //                return true;
         }
+        if (intent != null) {
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        mLocationClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        mLocationClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        // Hack so don't load the restaurants again
+        if (mCurrentLocation == null) {
+            requestRestaurants();
+        }
+    }
+
+    @Override
+    public void onDisconnected() {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
     }
 }

@@ -1,32 +1,44 @@
 package tables.android.models;
 
-import android.location.Location;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 
 public class Restaurant {
-    private long id;
+    private String id;
     private String restaurantName;
     private String restaurantDescription;
     private String restaurantType;
     private String restaurantCoverPhotoLink;
     private String address;
-    private Location location;
-    private RestaurantMenu restaurantMenu;
+    private ParseGeoPoint geoPoint;
 
-    public Restaurant(String restaurantName, String restaurantDescription, String restaurantType, String restaurantCoverPhotoLink, String address, Location location, RestaurantMenu restaurantMenu) {
+    public Restaurant(String id, String restaurantName, String restaurantDescription, String restaurantType, String restaurantCoverPhotoLink, String address, ParseGeoPoint geoPoint) {
+        this.id = id;
         this.restaurantName = restaurantName;
         this.restaurantDescription = restaurantDescription;
         this.restaurantType = restaurantType;
         this.restaurantCoverPhotoLink = restaurantCoverPhotoLink;
         this.address = address;
-        this.location = location;
-        this.restaurantMenu = restaurantMenu;
+        this.geoPoint = geoPoint;
+    }
+    public static Restaurant fromParseObject(ParseObject parseObject){
+        String id = parseObject.getObjectId();
+        String name = parseObject.getString("name");
+        String restaurantType = parseObject.getString("restaurantType");
+        String address = parseObject.getString("streetAddress");
+        ParseGeoPoint geoPoint = parseObject.getParseGeoPoint("coordinates");
+
+        String link = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
+
+        return new Restaurant(id, name, null, restaurantType, link, address, geoPoint);
+
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -54,20 +66,12 @@ public class Restaurant {
         this.restaurantType = restaurantType;
     }
 
-    public Location getLocation() {
-        return location;
+    public ParseGeoPoint getGeoPoint() {
+        return geoPoint;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public RestaurantMenu getRestaurantMenu() {
-        return restaurantMenu;
-    }
-
-    public void setRestaurantMenu(RestaurantMenu restaurantMenu) {
-        this.restaurantMenu = restaurantMenu;
+    public void setGeoPoint(ParseGeoPoint geoPoint) {
+        this.geoPoint = geoPoint;
     }
 
     public String getRestaurantCoverPhotoLink() {
@@ -85,4 +89,5 @@ public class Restaurant {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }

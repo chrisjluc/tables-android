@@ -10,15 +10,12 @@ import android.widget.ImageView;
 import tables.android.R;
 import tables.android.base.BaseActivity;
 import tables.android.framework.BitmapManager;
-import tables.android.models.Restaurant;
 import tables.android.ui.Constants;
 import tables.android.ui.ProfileActivity;
-import tables.android.utils.SdkUtils;
 
 public class RestaurantActivity extends BaseActivity implements View.OnClickListener {
 
     private boolean mIsCheckedIn;
-    private Restaurant restaurant;
     private BitmapManager mBitmapManager;
 
     @Override
@@ -29,8 +26,9 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         mBitmapManager = BitmapManager.getInstance();
 
         mIsCheckedIn = getIntent().getBooleanExtra(Constants.CHECKED_IN, false);
-        long restaurantId = getIntent().getLongExtra(Constants.RESTAURANT_ID, -1L);
-        if (restaurantId == -1)
+        String restaurantId = getIntent().getStringExtra(Constants.RESTAURANT_ID);
+        String restaurantName = getIntent().getStringExtra(Constants.RESTAURANT_NAME);
+        if (restaurantId == null)
             finish();
 
         if (!mIsCheckedIn) {
@@ -45,15 +43,15 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
 
         // TODO: Get restaurant here
 
-        if (getActionBar() != null) {
-            getActionBar().setTitle("Restaurant Name");
+        if (getActionBar() != null && restaurantName != null) {
+            getActionBar().setTitle(restaurantName);
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
         ImageView restaurantCoverPhotoImageView = (ImageView) findViewById(R.id.restaurantCoverPhotoImageView);
 
-        String link1 = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
-        if (link1 != null) {
-            mBitmapManager.loadBitmap(link1, restaurantCoverPhotoImageView);
+        String link = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
+        if (link != null) {
+            mBitmapManager.loadBitmap(link, restaurantCoverPhotoImageView);
         }
 
     }
@@ -74,8 +72,7 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
             startActivity(intent);
             return true;
         } else if (id == android.R.id.home) {
-            if (SdkUtils.supportsLollipop())
-                finishAfterTransition();
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -83,10 +80,11 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()) {
             case R.id.menuItem:
-                Intent intent = new Intent(getApplicationContext(), RestaurantMenuActivity.class);
-                startActivity(intent);
+                intent = new Intent(getApplicationContext(), RestaurantMenuActivity.class);
+
                 break;
             case R.id.specialsItem:
 
@@ -103,6 +101,8 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
             default:
 
         }
+        if (intent != null)
+            startActivity(intent);
 
     }
 }
