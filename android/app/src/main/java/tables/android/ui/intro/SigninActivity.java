@@ -19,10 +19,11 @@ import java.util.Arrays;
 
 import tables.android.R;
 import tables.android.base.BaseActivity;
+import tables.android.base.BaseSigninActivity;
 import tables.android.ui.FindRestaurantsActivity;
 import tables.android.utils.EmailUtils;
 
-public class SigninActivity extends BaseActivity implements View.OnClickListener {
+public class SigninActivity extends BaseSigninActivity implements View.OnClickListener {
 
     private static final String TAG = "SigninActivity";
     private EditText mEmailEditText;
@@ -45,23 +46,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
 
         switch (v.getId()) {
             case R.id.signinFacebookButton:
-                final ProgressDialog dialog = ProgressDialog.show(
-                        SigninActivity.this, "", "Connecting to Facebook...", true);
-                ParseFacebookUtils.logIn(Arrays.asList("email", "public_profile"),
-                        this, new LogInCallback() {
-                            @Override
-                            public void done(ParseUser user, ParseException err) {
-                                dialog.dismiss();
-                                if (user == null) {
-                                    Toast.makeText(getApplicationContext(), "Something went wrong, please try again later.", Toast.LENGTH_SHORT).show();
-                                    Log.d(TAG, err.toString());
-                                } else {
-                                    Intent i = new Intent(getApplicationContext(), FindRestaurantsActivity.class);
-                                    startActivity(i);
-                                    finish();
-                                }
-                            }
-                        });
+                connectToFacebook();
                 break;
             case R.id.signinButton:
                 final ProgressDialog signinDialog = ProgressDialog.show(

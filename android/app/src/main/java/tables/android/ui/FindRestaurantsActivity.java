@@ -63,9 +63,11 @@ public class FindRestaurantsActivity extends BaseActivity {
             case R.id.mapButton:
                 intent = new Intent(this, FindRestaurantsMapActivity.class);
                 startActivity(intent);
+                break;
             case R.id.profileButton:
                 intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
+                break;
 
 //            case R.id.action_log_out:
 //                ParseUser.logOut();

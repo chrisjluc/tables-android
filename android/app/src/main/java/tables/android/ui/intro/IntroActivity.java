@@ -1,32 +1,24 @@
 package tables.android.ui.intro;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.parse.LogInCallback;
-import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
-import java.util.Arrays;
-
 import tables.android.R;
-import tables.android.base.BaseActivity;
+import tables.android.base.BaseSigninActivity;
 import tables.android.ui.FindRestaurantsActivity;
 
-public class IntroActivity extends BaseActivity implements View.OnClickListener {
+public class IntroActivity extends BaseSigninActivity implements View.OnClickListener {
 
     private static final String TAG = "IntroActivity";
-    private static final int PARSE_REQUEST_CODE = 2;
     private VideoView mVideoView;
 
     @Override
@@ -63,24 +55,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.connectFacebookButton:
-                final ProgressDialog dialog = ProgressDialog.show(
-                        IntroActivity.this, "", "Connecting to Facebook...", true);
-                ParseFacebookUtils.logIn(Arrays.asList("email", "public_profile"),
-                        this, PARSE_REQUEST_CODE, new LogInCallback() {
-                            @Override
-                            public void done(ParseUser user, ParseException err) {
-                                dialog.dismiss();
-                                if (user == null) {
-                                    Toast.makeText(getApplicationContext(), "Something went wrong, please try again later.", Toast.LENGTH_SHORT).show();
-                                    Log.d(TAG, err.toString());
-
-                                } else {
-                                    Intent i = new Intent(getApplicationContext(), FindRestaurantsActivity.class);
-                                    startActivity(i);
-                                    finish();
-                                }
-                            }
-                        });
+                connectToFacebook();
                 break;
             case R.id.signupEmailButton:
                 Intent signup = new Intent(getApplicationContext(), SignupEmailActivity.class);
@@ -99,7 +74,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             case 1:
                 finish();
                 break;
-            case PARSE_REQUEST_CODE:
+            case consts.PARSE_REQUEST_CODE:
                 ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
                 break;
         }
