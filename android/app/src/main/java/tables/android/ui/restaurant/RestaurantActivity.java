@@ -5,31 +5,37 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.parse.ParseImageView;
 
 import tables.android.R;
 import tables.android.base.BaseActivity;
-import tables.android.framework.BitmapManager;
+import tables.android.framework.RestaurantManager;
+import tables.android.models.Restaurant;
 import tables.android.ui.Constants;
 import tables.android.ui.ProfileActivity;
 
 public class RestaurantActivity extends BaseActivity implements View.OnClickListener {
 
     private boolean mIsCheckedIn;
-    private BitmapManager mBitmapManager;
+    private Restaurant mRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
-
-        mBitmapManager = BitmapManager.getInstance();
+        ImageLoader imageLoader = ImageLoader.getInstance();
 
         mIsCheckedIn = getIntent().getBooleanExtra(Constants.CHECKED_IN, false);
         String restaurantId = getIntent().getStringExtra(Constants.RESTAURANT_ID);
-        String restaurantName = getIntent().getStringExtra(Constants.RESTAURANT_NAME);
         if (restaurantId == null)
             finish();
+        mRestaurant = RestaurantManager.getInstance().getRestaurant(restaurantId);
+        if (mRestaurant == null) {
+            //TODO: Handle this better
+            finish();
+        }
 
         if (!mIsCheckedIn) {
             findViewById(R.id.restaurantActivityCheckInButton).setVisibility(View.VISIBLE);
@@ -41,19 +47,15 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.contactItem).setOnClickListener(this);
         findViewById(R.id.hoursItem).setOnClickListener(this);
 
-        // TODO: Get restaurant here
-
-        if (getActionBar() != null && restaurantName != null) {
-            getActionBar().setTitle(restaurantName);
+        if (getActionBar() != null && mRestaurant.getRestaurantName() != null) {
+            getActionBar().setTitle(mRestaurant.getRestaurantName());
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        ImageView restaurantCoverPhotoImageView = (ImageView) findViewById(R.id.restaurantCoverPhotoImageView);
 
-        String link = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
-        if (link != null) {
-            mBitmapManager.loadBitmap(link, restaurantCoverPhotoImageView);
+        ParseImageView mainImage = (ParseImageView) findViewById(R.id.mainImageView);
+        if (mRestaurant.getMainImage() != null) {
+            imageLoader.displayImage(mRestaurant.getMainImage().getUrl(), mainImage);
         }
-
     }
 
 

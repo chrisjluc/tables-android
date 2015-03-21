@@ -1,5 +1,6 @@
 package tables.android.models;
 
+import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
@@ -8,16 +9,16 @@ public class Restaurant {
     private String restaurantName;
     private String restaurantDescription;
     private String restaurantType;
-    private String restaurantCoverPhotoLink;
+    private ParseFile mainImage;
     private String address;
     private ParseGeoPoint geoPoint;
 
-    public Restaurant(String id, String restaurantName, String restaurantDescription, String restaurantType, String restaurantCoverPhotoLink, String address, ParseGeoPoint geoPoint) {
+    public Restaurant(String id, String restaurantName, String restaurantDescription, String restaurantType, ParseFile mainImage, String address, ParseGeoPoint geoPoint) {
         this.id = id;
         this.restaurantName = restaurantName;
         this.restaurantDescription = restaurantDescription;
         this.restaurantType = restaurantType;
-        this.restaurantCoverPhotoLink = restaurantCoverPhotoLink;
+        this.mainImage = mainImage;
         this.address = address;
         this.geoPoint = geoPoint;
     }
@@ -27,11 +28,8 @@ public class Restaurant {
         String restaurantType = parseObject.getString("restaurantType");
         String address = parseObject.getString("streetAddress");
         ParseGeoPoint geoPoint = parseObject.getParseGeoPoint("coordinates");
-
-        String link = "http://waterfrontsf.com/waterfrontsf.com/userimages/HomePage5_lrg_78140.jpg";
-
-        return new Restaurant(id, name, null, restaurantType, link, address, geoPoint);
-
+        ParseFile photo = parseObject.getParseFile("mainImage");
+        return new Restaurant(id, name, null, restaurantType, photo, address, geoPoint);
     }
 
     public String getId() {
@@ -74,12 +72,12 @@ public class Restaurant {
         this.geoPoint = geoPoint;
     }
 
-    public String getRestaurantCoverPhotoLink() {
-        return restaurantCoverPhotoLink;
+    public ParseFile getMainImage() {
+        return mainImage;
     }
 
-    public void setRestaurantCoverPhotoLink(String restaurantCoverPhotoLink) {
-        this.restaurantCoverPhotoLink = restaurantCoverPhotoLink;
+    public void setMainImage(ParseFile mainImage) {
+        this.mainImage = mainImage;
     }
 
     public String getAddress() {

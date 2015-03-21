@@ -24,6 +24,7 @@ import java.util.HashMap;
 import tables.android.R;
 import tables.android.adapters.RestaurantsAdapter;
 import tables.android.base.BaseActivity;
+import tables.android.framework.RestaurantManager;
 import tables.android.models.Restaurant;
 
 public class FindRestaurantsActivity extends BaseActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
@@ -61,9 +62,11 @@ public class FindRestaurantsActivity extends BaseActivity implements GooglePlayS
         ParseCloud.callFunctionInBackground("findNearbyRestaurants", params, new FunctionCallback<ArrayList<ParseObject>>() {
             public void done(ArrayList<ParseObject> results, ParseException e) {
                 if (e == null) {
+                    RestaurantManager restaurantManager = RestaurantManager.getInstance();
                     Restaurant[] restaurants = new Restaurant[results.size()];
                     for (int i = 0; i < results.size(); i++) {
                         restaurants[i] = Restaurant.fromParseObject(results.get(i));
+                        restaurantManager.addRestaurant(restaurants[i]);
                     }
                     mAdapter = new RestaurantsAdapter(restaurants, mActivity);
                     mRestaurantRecyclerView.setAdapter(mAdapter);

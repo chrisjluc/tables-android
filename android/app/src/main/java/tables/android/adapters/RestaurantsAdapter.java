@@ -8,11 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.parse.ParseImageView;
+
 import tables.android.R;
-import tables.android.framework.BitmapManager;
 import tables.android.models.Restaurant;
 import tables.android.ui.Constants;
 import tables.android.ui.restaurant.RestaurantActivity;
@@ -22,7 +23,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private final static String TAG = "RestaurantsAdapter";
     private Restaurant[] mRestaurants;
     private Activity mActivity;
-    private BitmapManager mBitmapManager;
+    private ImageLoader mImageLoader;
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CardView mCardView;
@@ -36,7 +38,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public RestaurantsAdapter(Restaurant[] restaurants, Activity activity) {
         mRestaurants = restaurants;
         mActivity = activity;
-        mBitmapManager = BitmapManager.getInstance();
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -51,24 +53,27 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Restaurant r = mRestaurants[position];
+
         TextView restaurantNameTextView = (TextView) holder.mCardView.findViewById(R.id.restaurantNameTextView);
         if (r.getRestaurantName() != null)
             restaurantNameTextView.setText(r.getRestaurantName());
-        final ImageView restaurantCoverPhotoImageView = (ImageView) holder.mCardView.findViewById(R.id.restaurantCoverPhotoImageView);
-        if (r.getRestaurantCoverPhotoLink() != null) {
-            mBitmapManager.loadBitmap(r.getRestaurantCoverPhotoLink(), restaurantCoverPhotoImageView);
+
+        final ParseImageView restaurantCoverPhotoImageView = (ParseImageView) holder.mCardView.findViewById(R.id.mainImageView);
+        if (r.getMainImage() != null) {
+            mImageLoader.displayImage(r.getMainImage().getUrl(), restaurantCoverPhotoImageView);
         }
+
         TextView restaurantTypeTextView = (TextView) holder.mCardView.findViewById(R.id.restaurantTypeTextView);
         if (r.getRestaurantType() != null) {
             restaurantTypeTextView.setText(r.getRestaurantType());
         }
+
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, RestaurantActivity.class);
                 intent.putExtra(Constants.CHECKED_IN, false);
                 intent.putExtra(Constants.RESTAURANT_ID, mRestaurants[position].getId());
-                intent.putExtra(Constants.RESTAURANT_NAME, mRestaurants[position].getRestaurantName());
                 if (SdkUtils.supportsLollipop()) {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                             mActivity,
