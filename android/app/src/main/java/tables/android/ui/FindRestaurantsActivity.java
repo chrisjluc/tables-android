@@ -32,7 +32,6 @@ public class FindRestaurantsActivity extends BaseActivity implements GooglePlayS
     private static final String TAG = "FindRestaurantsActivity";
 
     private RecyclerView mRestaurantRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private LocationClient mLocationClient;
@@ -65,19 +64,17 @@ public class FindRestaurantsActivity extends BaseActivity implements GooglePlayS
                     RestaurantManager restaurantManager = RestaurantManager.getInstance();
                     Restaurant[] restaurants = new Restaurant[results.size()];
                     for (int i = 0; i < results.size(); i++) {
-                        restaurants[i] = Restaurant.fromParseObject(results.get(i));
+                        restaurants[i] = new Restaurant(results.get(i));
                         restaurantManager.addRestaurant(restaurants[i]);
                     }
-                    mAdapter = new RestaurantsAdapter(restaurants, mActivity);
-                    mRestaurantRecyclerView.setAdapter(mAdapter);
+                    RestaurantsAdapter adapter = new RestaurantsAdapter(restaurants, mActivity);
+                    mRestaurantRecyclerView.setAdapter(adapter);
 
                     mRestaurantRecyclerView.setVisibility(View.VISIBLE);
                     findViewById(R.id.progressBar).setVisibility(View.GONE);
                 }
             }
         });
-
-
     }
 
     @Override

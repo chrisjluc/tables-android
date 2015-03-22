@@ -15,7 +15,7 @@
         <com.parse.ParseImageView
             android:id="@+id/mainImageView"
             android:adjustViewBounds="true"
-            android:transitionName="@string/transition_restaurant_cover_photo"
+            android:transitionName="@string/transition_restaurant_image"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

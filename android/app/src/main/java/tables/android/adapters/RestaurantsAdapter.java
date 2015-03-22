@@ -78,7 +78,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                             mActivity,
                             restaurantCoverPhotoImageView,
-                            mActivity.getResources().getString(R.string.transition_restaurant_cover_photo));
+                            mActivity.getResources().getString(R.string.transition_restaurant_image));
                     mActivity.startActivity(intent, options.toBundle());
                 } else {
                     mActivity.startActivity(intent);

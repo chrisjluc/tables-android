@@ -1,5 +1,6 @@
 package tables.android.ui.intro;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import tables.android.ui.FindRestaurantsActivity;
 public class IntroActivity extends BaseSigninActivity implements View.OnClickListener {
 
     private static final String TAG = "IntroActivity";
+    private static final int REQUEST_CODE = 1;
     private VideoView mVideoView;
 
     @Override
@@ -59,11 +61,11 @@ public class IntroActivity extends BaseSigninActivity implements View.OnClickLis
                 break;
             case R.id.signupEmailButton:
                 Intent signup = new Intent(getApplicationContext(), SignupEmailActivity.class);
-                startActivityForResult(signup, 1);
+                startActivityForResult(signup, REQUEST_CODE);
                 break;
             case R.id.signinTextView:
                 Intent signin = new Intent(getApplicationContext(), SigninActivity.class);
-                startActivityForResult(signin, 1);
+                startActivityForResult(signin, REQUEST_CODE);
                 break;
         }
     }
@@ -71,8 +73,10 @@ public class IntroActivity extends BaseSigninActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case 1:
-                finish();
+            case REQUEST_CODE:
+                //RESULT_OK means user signed in, RESULT_CANCELLED user didn't sign in
+                if (resultCode == Activity.RESULT_OK)
+                    finish();
                 break;
             case consts.PARSE_REQUEST_CODE:
                 ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);

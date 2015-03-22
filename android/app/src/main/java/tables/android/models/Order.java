@@ -4,5 +4,5 @@ import java.util.HashMap;
 
 public class Order {
     private Restaurant restaurant;
-    private HashMap<MenuItem, CustomizationOption> itemAndCustomizationMap;
+    private HashMap<RestaurantMenuItem, CustomizationOption> itemAndCustomizationMap;
 }

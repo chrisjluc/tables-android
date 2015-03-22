@@ -10,10 +10,12 @@
     <string name="title_activity_restaurant">RestaurantActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="is_checked_in">is_checked_in</string>
-    <string name="title_activity_restaurant_menu">Menu</string>
+    <string name="title_activity_menu_categories">Menu</string>
+    <string name="title_activity_profile">Account</string>
+    <string name="title_activity_menu_items">Menu</string>
 
     <!-- app -->
-    <string name="transition_restaurant_cover_photo">RestaurantCoverPhotoTransition</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="transition_restaurant_image">RestaurantCoverPhotoTransition</string>
+    <string name="title_activity_menu_item">MenuItemActivity</string>
 
 </resources>

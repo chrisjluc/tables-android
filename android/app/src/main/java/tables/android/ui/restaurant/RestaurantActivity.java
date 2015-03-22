@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseImageView;
@@ -19,7 +20,7 @@ import tables.android.ui.ProfileActivity;
 public class RestaurantActivity extends BaseActivity implements View.OnClickListener {
 
     private boolean mIsCheckedIn;
-    private Restaurant mRestaurant;
+    private String mRestaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,11 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         ImageLoader imageLoader = ImageLoader.getInstance();
 
         mIsCheckedIn = getIntent().getBooleanExtra(Constants.CHECKED_IN, false);
-        String restaurantId = getIntent().getStringExtra(Constants.RESTAURANT_ID);
-        if (restaurantId == null)
+        mRestaurantId = getIntent().getStringExtra(Constants.RESTAURANT_ID);
+        if (mRestaurantId == null)
             finish();
-        mRestaurant = RestaurantManager.getInstance().getRestaurant(restaurantId);
-        if (mRestaurant == null) {
+        Restaurant restaurant = RestaurantManager.getInstance().getRestaurant(mRestaurantId);
+        if (restaurant == null) {
             //TODO: Handle this better
             finish();
         }
@@ -47,14 +48,19 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.contactItem).setOnClickListener(this);
         findViewById(R.id.hoursItem).setOnClickListener(this);
 
-        if (getActionBar() != null && mRestaurant.getRestaurantName() != null) {
-            getActionBar().setTitle(mRestaurant.getRestaurantName());
+        if (getActionBar() != null && restaurant.getRestaurantName() != null) {
+            getActionBar().setTitle(restaurant.getRestaurantName());
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         ParseImageView mainImage = (ParseImageView) findViewById(R.id.mainImageView);
-        if (mRestaurant.getMainImage() != null) {
-            imageLoader.displayImage(mRestaurant.getMainImage().getUrl(), mainImage);
+        if (restaurant.getMainImage() != null) {
+            imageLoader.displayImage(restaurant.getMainImage().getUrl(), mainImage);
+        }
+
+        TextView hoursText = (TextView) findViewById(R.id.hoursTextView);
+        if (restaurant.getHours() != null) {
+            hoursText.setText(restaurant.getHours().toString());
         }
     }
 
@@ -85,8 +91,8 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         Intent intent = null;
         switch (v.getId()) {
             case R.id.menuItem:
-                intent = new Intent(getApplicationContext(), RestaurantMenuActivity.class);
-
+                intent = new Intent(getApplicationContext(), MenuCategoriesActivity.class);
+                intent.putExtra(Constants.RESTAURANT_ID, mRestaurantId);
                 break;
             case R.id.specialsItem:
 

@@ -18,6 +18,17 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyB-nz-KTvAmQDuubqj-DU9HcoiHcN4ue8g" />
+        
         <activity android:name=".ui.FindRestaurantsActivity" />
         <activity android:name=".ui.FindRestaurantsMapActivity" />
         <activity android:name=".ui.intro.IntroActivity">
@@ -36,27 +47,21 @@
         <activity
             android:name="com.facebook.LoginActivity"
             android:label="Facebook Login" />
-
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB-nz-KTvAmQDuubqj-DU9HcoiHcN4ue8g" />
-
         <activity
             android:name=".ui.restaurant.RestaurantActivity"
-            android:label="@string/title_activity_restaurant"></activity>
-
+            android:label="@string/title_activity_restaurant" />
         <activity
-            android:name=".ui.restaurant.RestaurantMenuActivity"
-            android:label="@string/title_activity_restaurant_menu"></activity>
+            android:name=".ui.restaurant.MenuCategoriesActivity"
+            android:label="@string/title_activity_menu_categories" />
         <activity
             android:name=".ui.ProfileActivity"
-            android:label="@string/title_activity_profile"></activity>
+            android:label="@string/title_activity_profile" />
+        <activity
+            android:name=".ui.restaurant.MenuItemsActivity"
+            android:label="@string/title_activity_menu_items"></activity>
+        <activity
+            android:name=".ui.restaurant.MenuItemActivity"
+            android:label="@string/title_activity_menu_item"></activity>
     </application>
 
 </manifest>
