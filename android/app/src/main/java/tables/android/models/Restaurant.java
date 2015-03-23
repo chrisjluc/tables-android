@@ -15,8 +15,9 @@ public class Restaurant {
     private String address;
     private ParseGeoPoint geoPoint;
     private RestaurantHours hours;
+    private double kilometersDistance;
 
-    public Restaurant(ParseObject parseObject) {
+    public Restaurant(ParseObject parseObject, ParseGeoPoint currentGeoPoint) {
         id = parseObject.getObjectId();
         restaurantName = parseObject.getString("name");
         restaurantType = parseObject.getString("restaurantType");
@@ -24,6 +25,7 @@ public class Restaurant {
         geoPoint = parseObject.getParseGeoPoint("coordinates");
         mainImage = parseObject.getParseFile("mainImage");
         hours = new RestaurantHours(parseObject.get("hours"));
+        kilometersDistance = currentGeoPoint.distanceInKilometersTo(geoPoint);
     }
 
     public String getId() {
@@ -56,5 +58,11 @@ public class Restaurant {
 
     public RestaurantHours getHours() {
         return hours;
+    }
+
+    public String getKilometersDistanceString() {
+        if (kilometersDistance < 0.1)
+            return "< 0.1 KM";
+        return String.format("%.1f KM", kilometersDistance);
     }
 }

@@ -68,6 +68,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantTypeTextView.setText(r.getRestaurantType());
         }
 
+        TextView distanceTextView = (TextView) holder.mCardView.findViewById(R.id.restaurantRelativeDistanceTextView);
+        if (r.getGeoPoint() != null) {
+            distanceTextView.setText(r.getKilometersDistanceString());
+        }
+
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

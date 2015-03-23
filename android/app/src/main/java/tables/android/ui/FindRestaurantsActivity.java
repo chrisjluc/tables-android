@@ -56,15 +56,15 @@ public class FindRestaurantsActivity extends BaseActivity implements GooglePlayS
         mCurrentLocation = mLocationClient.getLastLocation();
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("radius", Constants.RADIUS_KM);
-        ParseGeoPoint point = new ParseGeoPoint(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-        params.put("geoPoint", point);
+        final ParseGeoPoint currentGeoPoint = new ParseGeoPoint(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        params.put("geoPoint", currentGeoPoint);
         ParseCloud.callFunctionInBackground("findNearbyRestaurants", params, new FunctionCallback<ArrayList<ParseObject>>() {
             public void done(ArrayList<ParseObject> results, ParseException e) {
                 if (e == null) {
                     RestaurantManager restaurantManager = RestaurantManager.getInstance();
                     Restaurant[] restaurants = new Restaurant[results.size()];
                     for (int i = 0; i < results.size(); i++) {
-                        restaurants[i] = new Restaurant(results.get(i));
+                        restaurants[i] = new Restaurant(results.get(i), currentGeoPoint);
                         restaurantManager.addRestaurant(restaurants[i]);
                     }
                     RestaurantsAdapter adapter = new RestaurantsAdapter(restaurants, mActivity);
