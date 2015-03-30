@@ -13,6 +13,7 @@ public class Restaurant {
     private String restaurantType;
     private ParseFile mainImage;
     private String address;
+    private String phoneNumber;
     private ParseGeoPoint geoPoint;
     private RestaurantHours hours;
     private double kilometersDistance;
@@ -22,6 +23,7 @@ public class Restaurant {
         restaurantName = parseObject.getString("name");
         restaurantType = parseObject.getString("restaurantType");
         address = parseObject.getString("streetAddress");
+        phoneNumber = parseObject.getString("phoneNumber");
         geoPoint = parseObject.getParseGeoPoint("coordinates");
         mainImage = parseObject.getParseFile("mainImage");
         hours = new RestaurantHours(parseObject.get("hours"));
@@ -54,6 +56,10 @@ public class Restaurant {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public RestaurantHours getHours() {

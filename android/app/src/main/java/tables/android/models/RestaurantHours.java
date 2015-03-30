@@ -2,7 +2,10 @@ package tables.android.models;
 
 import android.util.SparseArray;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class RestaurantHours {
@@ -21,12 +24,34 @@ public class RestaurantHours {
         }
     }
 
-    @Override
-    public String toString() {
+    private int getCurrentDay() {
         Calendar calendar = Calendar.getInstance();
         // + 5 because offset by 2 days and add a week to use modulus
-        int day = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
-        HashMap<String, String> startAndEndTimes = mHours.get(day);
+        return (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+    }
+
+    public boolean isOpen() {
+        // Since open and close time will be at epoch when parsed without a date
+        // normalize to epoch as well
+        Calendar c = Calendar.getInstance();
+        c.set(1970, 0, 1);
+        Date currentTime = c.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+        HashMap<String, String> startAndEndTimes = mHours.get(getCurrentDay());
+        try {
+            Date openTime = sdf.parse(startAndEndTimes.get(OPEN));
+            Date closeTime = sdf.parse(startAndEndTimes.get(CLOSE));
+            return currentTime.after(openTime) && currentTime.before(closeTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        HashMap<String, String> startAndEndTimes = mHours.get(getCurrentDay());
         return startAndEndTimes.get(OPEN) + " - " + startAndEndTimes.get(CLOSE);
     }
 }

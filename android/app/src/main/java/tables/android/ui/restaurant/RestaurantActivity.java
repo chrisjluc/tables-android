@@ -1,6 +1,7 @@
 package tables.android.ui.restaurant;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
 
     private boolean mIsCheckedIn;
     private String mRestaurantId;
+    private Restaurant mRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,8 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         mRestaurantId = getIntent().getStringExtra(Constants.RESTAURANT_ID);
         if (mRestaurantId == null)
             finish();
-        Restaurant restaurant = RestaurantManager.getInstance().getRestaurant(mRestaurantId);
-        if (restaurant == null) {
+        mRestaurant = RestaurantManager.getInstance().getRestaurant(mRestaurantId);
+        if (mRestaurant == null) {
             //TODO: Handle this better
             finish();
         }
@@ -45,23 +47,37 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
 
         findViewById(R.id.menuItem).setOnClickListener(this);
         findViewById(R.id.specialsItem).setOnClickListener(this);
-        findViewById(R.id.contactItem).setOnClickListener(this);
+        findViewById(R.id.phoneNumberItem).setOnClickListener(this);
         findViewById(R.id.hoursItem).setOnClickListener(this);
 
-        if (getActionBar() != null && restaurant.getRestaurantName() != null) {
-            getActionBar().setTitle(restaurant.getRestaurantName());
+        if (getActionBar() != null && mRestaurant.getRestaurantName() != null) {
+            getActionBar().setTitle(mRestaurant.getRestaurantName());
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        ParseImageView mainImage = (ParseImageView) findViewById(R.id.mainImageView);
-        if (restaurant.getMainImage() != null) {
-            imageLoader.displayImage(restaurant.getMainImage().getUrl(), mainImage);
+        if (mRestaurant.getMainImage() != null) {
+            ParseImageView mainImage = (ParseImageView) findViewById(R.id.mainImageView);
+            imageLoader.displayImage(mRestaurant.getMainImage().getUrl(), mainImage);
         }
 
-        TextView hoursText = (TextView) findViewById(R.id.hoursTextView);
-        if (restaurant.getHours() != null) {
-            hoursText.setText(restaurant.getHours().toString());
+        if (mRestaurant.getHours() != null) {
+            TextView hoursText = (TextView) findViewById(R.id.hoursTextView);
+            hoursText.setText(mRestaurant.getHours().toString());
         }
+
+        if (!mRestaurant.getHours().isOpen())
+            findViewById(R.id.openTextView).setVisibility(View.GONE);
+
+        if (mRestaurant.getPhoneNumber() != null) {
+            TextView phoneNumberTextView = (TextView) findViewById(R.id.phoneNumberTextView);
+            phoneNumberTextView.setText(mRestaurant.getPhoneNumber());
+        }
+
+        if (mRestaurant.getAddress() != null) {
+            TextView addressTextView = (TextView) findViewById(R.id.addressTextView);
+            addressTextView.setText(mRestaurant.getAddress());
+        }
+
     }
 
 
@@ -97,10 +113,14 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
             case R.id.specialsItem:
 
                 break;
-            case R.id.contactItem:
+            case R.id.hoursItem:
 
                 break;
-            case R.id.hoursItem:
+            case R.id.phoneNumberItem:
+                String url = "tel:" + mRestaurant.getPhoneNumber();
+                intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+                break;
+            case R.id.addressItem:
 
                 break;
             case R.id.restaurantActivityCheckInButton:

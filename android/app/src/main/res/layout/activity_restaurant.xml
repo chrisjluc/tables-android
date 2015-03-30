@@ -21,7 +21,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
                 android:scaleType="fitXY"
-                android:transitionName="@string/transition_restaurant_image"/>
+                android:transitionName="@string/transition_restaurant_image" />
 
             <RelativeLayout
                 android:id="@+id/menuItem"
@@ -35,10 +35,10 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="Menu"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/specialsItem"
                 android:layout_marginTop="1dp"
@@ -52,26 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="Specials"
-                    android:textSize="18sp"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/contactItem"
-                android:layout_marginTop="1dp"
-                android:background="@android:color/white"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/restaurant_menu_item_height">
-
-                <tables.android.ui.components.TablesTextView
-                    android:padding="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="Contact"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
 
             </RelativeLayout>
 
@@ -87,14 +68,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerVertical="true">
-                    <tables.android.ui.components.TablesTextView
+
+                    <tables.android.ui.components.TablesLightTextView
                         android:paddingTop="16dp"
                         android:paddingLeft="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hours"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
+
                     <tables.android.ui.components.TablesTextView
                         android:layout_marginTop="4dp"
                         android:id="@+id/hoursTextView"
@@ -102,13 +84,84 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="9:00 AM - 9:00 PM"
-                        android:textSize="18sp"
-                        />
-                    </LinearLayout>
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/openTextView"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Open"
+                    android:textColor="@color/tables_green" />
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/phoneNumberItem"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/restaurant_menu_item_height">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+
+                    <tables.android.ui.components.TablesLightTextView
+                        android:paddingTop="16dp"
+                        android:paddingLeft="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number"
+                        android:textSize="18sp" />
+
+                    <tables.android.ui.components.TablesTextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/phoneNumberTextView"
+                        android:paddingLeft="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addressItem"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/restaurant_menu_item_height">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+
+                    <tables.android.ui.components.TablesLightTextView
+                        android:paddingTop="16dp"
+                        android:paddingLeft="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address"
+                        android:textSize="18sp" />
+
+                    <tables.android.ui.components.TablesTextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/addressTextView"
+                        android:paddingLeft="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
