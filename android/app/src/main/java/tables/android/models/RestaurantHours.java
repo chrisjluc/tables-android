@@ -42,6 +42,13 @@ public class RestaurantHours {
         try {
             Date openTime = sdf.parse(startAndEndTimes.get(OPEN));
             Date closeTime = sdf.parse(startAndEndTimes.get(CLOSE));
+
+            if (closeTime.before(openTime)){
+                Calendar temp = Calendar.getInstance();
+                temp.setTime(closeTime);
+                temp.add(Calendar.DATE, 1);
+                closeTime = temp.getTime();
+            }
             return currentTime.after(openTime) && currentTime.before(closeTime);
         } catch (ParseException e) {
             e.printStackTrace();
