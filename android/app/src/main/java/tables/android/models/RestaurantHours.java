@@ -49,7 +49,13 @@ public class RestaurantHours {
                 temp.add(Calendar.DATE, 1);
                 closeTime = temp.getTime();
             }
-            return currentTime.after(openTime) && currentTime.before(closeTime);
+            Calendar temp = Calendar.getInstance();
+            temp.setTime(currentTime);
+            temp.add(Calendar.DATE, 1);
+            Date currentTimePlusDay = temp.getTime();
+
+            return (currentTime.after(openTime) && currentTime.before(closeTime)) ||
+                    (currentTimePlusDay.after(openTime) && currentTimePlusDay.before(closeTime));
         } catch (ParseException e) {
             e.printStackTrace();
         }
