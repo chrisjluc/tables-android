@@ -41,7 +41,7 @@ public class FindRestaurantsActivity extends BaseActivity implements GooglePlayS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find);
+        setContentView(R.layout.activity_find_restaurants);
         mRestaurantRecyclerView = (RecyclerView) findViewById(R.id.restaurant_recycler_view);
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRestaurantRecyclerView.setLayoutManager(mLayoutManager);

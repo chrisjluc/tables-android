@@ -19,7 +19,7 @@
             <com.parse.ParseImageView
                 android:id="@+id/mainImageView"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/restaurant_cover_photo_height"
                 android:scaleType="fitXY"
                 android:transitionName="@string/transition_restaurant_image" />
 
@@ -27,7 +27,7 @@
                 android:id="@+id/menuItem"
                 android:background="@android:color/white"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/restaurant_menu_item_height">
+                android:layout_height="@dimen/menu_item_height">
 
                 <tables.android.ui.components.TablesTextView
                     android:padding="16dp"
@@ -40,28 +40,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/specialsItem"
-                android:layout_marginTop="1dp"
-                android:background="@android:color/white"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/restaurant_menu_item_height">
-
-                <tables.android.ui.components.TablesTextView
-                    android:padding="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="Specials"
-                    android:textSize="18sp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/hoursItem"
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/restaurant_menu_item_height">
+                android:layout_height="@dimen/menu_item_height">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -104,7 +87,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/restaurant_menu_item_height">
+                android:layout_height="@dimen/menu_item_height">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -136,7 +119,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/restaurant_menu_item_height">
+                android:layout_height="@dimen/menu_item_height">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

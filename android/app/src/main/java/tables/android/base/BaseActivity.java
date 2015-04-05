@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import tables.android.framework.VisibilityManager;
 import tables.android.utils.SdkUtils;
@@ -52,5 +53,15 @@ public class BaseActivity extends Activity {
             finishAfterTransition();
         } else
             super.finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

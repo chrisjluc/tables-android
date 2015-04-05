@@ -66,6 +66,7 @@ public class MenuCategoriesAdapter extends RecyclerView.Adapter<MenuCategoriesAd
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MenuItemsActivity.class);
                 intent.putExtra(Constants.MENU_CATEGORY_ID, mCategories[position].getId());
+                intent.putExtra(Constants.MENU_CATEGORY_NAME, mCategories[position].getCategoryName());
                 mContext.startActivity(intent);
             }
         });

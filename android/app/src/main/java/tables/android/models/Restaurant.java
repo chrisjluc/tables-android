@@ -65,6 +65,9 @@ public class Restaurant {
     public RestaurantHours getHours() {
         return hours;
     }
+    public boolean isOpen() {
+        return hours.isOpen();
+    }
 
     public String getKilometersDistanceString() {
         if (kilometersDistance < 0.1)

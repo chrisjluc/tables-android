@@ -5,6 +5,13 @@
     <dimen name="button_standard_height">48dp</dimen>
     <dimen name="button_large_height">64dp</dimen>
 
-    <dimen name="restaurant_menu_item_height">64dp</dimen>
+     <!-- Restaurant -->
+    <dimen name="restaurant_card_item_height">200dp</dimen>
+    <dimen name="category_card_item_height">200dp</dimen>
+    <dimen name="menu_item_card_height">64dp</dimen>
+
+    <dimen name="menu_item_height">64dp</dimen>
+    <dimen name="menu_item_cover_photo_height">200dp</dimen>
+    <dimen name="restaurant_cover_photo_height">200dp</dimen>
 
 </resources>

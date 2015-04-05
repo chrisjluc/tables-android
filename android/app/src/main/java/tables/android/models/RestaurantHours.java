@@ -30,6 +30,7 @@ public class RestaurantHours {
         return (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
     }
 
+    //TODO need to return a string of open until 3AM for example day before is open until 2am and it's 1 am now it should catch that
     public boolean isOpen() {
         // Since open and close time will be at epoch when parsed without a date
         // normalize to epoch as well
@@ -39,23 +40,41 @@ public class RestaurantHours {
 
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
         HashMap<String, String> startAndEndTimes = mHours.get(getCurrentDay());
+        HashMap<String, String> yesterdayStartAndEndTimes = mHours.get(getCurrentDay() - 1);
         try {
             Date openTime = sdf.parse(startAndEndTimes.get(OPEN));
             Date closeTime = sdf.parse(startAndEndTimes.get(CLOSE));
 
-            if (closeTime.before(openTime)){
+            // Handles when restaurant time wraps to another day
+            if (closeTime.before(openTime)) {
                 Calendar temp = Calendar.getInstance();
                 temp.setTime(closeTime);
                 temp.add(Calendar.DATE, 1);
                 closeTime = temp.getTime();
             }
-            Calendar temp = Calendar.getInstance();
-            temp.setTime(currentTime);
-            temp.add(Calendar.DATE, 1);
-            Date currentTimePlusDay = temp.getTime();
+
+            // Looks back the day before and see if the time crosses into today, and if it's still open.
+            Date yesterdayOpenTime = sdf.parse(yesterdayStartAndEndTimes.get(OPEN));
+            Date yesterdayCloseTime = sdf.parse(yesterdayStartAndEndTimes.get(CLOSE));
+            Date currentTimePlusDay = null;
+
+            boolean checkPreviousTimes = false;
+            if (yesterdayCloseTime.before(yesterdayOpenTime)) {
+                checkPreviousTimes = true;
+                Calendar temp = Calendar.getInstance();
+                temp.setTime(yesterdayCloseTime);
+                temp.add(Calendar.DATE, 1);
+                yesterdayCloseTime = temp.getTime();
+
+                // When the previous day end time wraps to the next day
+                temp = Calendar.getInstance();
+                temp.setTime(currentTime);
+                temp.add(Calendar.DATE, 1);
+                currentTimePlusDay = temp.getTime();
+            }
 
             return (currentTime.after(openTime) && currentTime.before(closeTime)) ||
-                    (currentTimePlusDay.after(openTime) && currentTimePlusDay.before(closeTime));
+                    (checkPreviousTimes && currentTimePlusDay.after(yesterdayOpenTime) && currentTimePlusDay.before(yesterdayCloseTime));
         } catch (ParseException e) {
             e.printStackTrace();
         }

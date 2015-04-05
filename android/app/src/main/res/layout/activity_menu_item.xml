@@ -4,9 +4,62 @@
     android:layout_height="match_parent"
     tools:context="tables.android.ui.restaurant.MenuItemActivity">
 
-    <TextView
-        android:text="@string/hello_world"
+    <LinearLayout
+        android:id="@+id/restaurantHeaderLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.parse.ParseImageView
+            android:id="@+id/menuItemImageView"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/menu_item_cover_photo_height"
+            android:scaleType="fitXY" />
+
+        <tables.android.ui.components.TablesTextView
+            android:id="@+id/menuItemDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <tables.android.ui.components.TablesBoldTextView
+                android:text="Customizations"
+                android:textSize="36sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <tables.android.ui.components.TablesBoldTextView
+                android:id="@+id/orderPriceTextView"
+                android:textSize="24sp"
+                android:gravity="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/customizationOptionsRecyclerView"
+        android:layout_below="@+id/restaurantHeaderLayout"
+        android:layout_above="@+id/addToOrderButton"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="@dimen/button_large_height"
+        android:text="Add to Order"
+        android:id="@+id/addToOrderButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

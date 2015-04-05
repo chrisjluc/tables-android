@@ -46,12 +46,12 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
         }
 
         findViewById(R.id.menuItem).setOnClickListener(this);
-        findViewById(R.id.specialsItem).setOnClickListener(this);
         findViewById(R.id.phoneNumberItem).setOnClickListener(this);
         findViewById(R.id.hoursItem).setOnClickListener(this);
 
-        if (getActionBar() != null && mRestaurant.getRestaurantName() != null) {
-            getActionBar().setTitle(mRestaurant.getRestaurantName());
+        if (getActionBar() != null) {
+            if (mRestaurant.getRestaurantName() != null)
+                getActionBar().setTitle(mRestaurant.getRestaurantName());
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -65,7 +65,7 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
             hoursText.setText(mRestaurant.getHours().toString());
         }
 
-        if (!mRestaurant.getHours().isOpen())
+        if (!mRestaurant.isOpen())
             findViewById(R.id.openTextView).setVisibility(View.GONE);
 
         if (mRestaurant.getPhoneNumber() != null) {
@@ -95,9 +95,6 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
             return true;
-        } else if (id == android.R.id.home) {
-            finish();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -109,9 +106,6 @@ public class RestaurantActivity extends BaseActivity implements View.OnClickList
             case R.id.menuItem:
                 intent = new Intent(getApplicationContext(), MenuCategoriesActivity.class);
                 intent.putExtra(Constants.RESTAURANT_ID, mRestaurantId);
-                break;
-            case R.id.specialsItem:
-
                 break;
             case R.id.hoursItem:
 
