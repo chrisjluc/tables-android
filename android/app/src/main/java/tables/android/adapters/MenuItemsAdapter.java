@@ -13,7 +13,6 @@ import tables.android.R;
 import tables.android.models.RestaurantMenuItem;
 import tables.android.ui.Constants;
 import tables.android.ui.restaurant.MenuItemActivity;
-import tables.android.ui.restaurant.MenuItemsActivity;
 
 public class MenuItemsAdapter extends RecyclerView.Adapter<MenuItemsAdapter.ViewHolder> {
     private final static String TAG = "MenuItemsAdapter";
@@ -36,7 +35,7 @@ public class MenuItemsAdapter extends RecyclerView.Adapter<MenuItemsAdapter.View
 
     @Override
     public MenuItemsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                               int viewType) {
+                                                          int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view_menu_item, parent, false);
         ViewHolder vh = new ViewHolder((CardView) v);
@@ -52,7 +51,7 @@ public class MenuItemsAdapter extends RecyclerView.Adapter<MenuItemsAdapter.View
             categoryNameTextView.setText(item.getMenuItemName());
 
         TextView menuItemPriceTextView = (TextView) holder.mCardView.findViewById(R.id.menuItemPrice);
-            menuItemPriceTextView.setText(Double.toString(item.getBasePrice()));
+        menuItemPriceTextView.setText(item.getBasePrice().toString());
 
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override

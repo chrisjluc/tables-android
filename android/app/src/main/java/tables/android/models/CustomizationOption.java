@@ -2,9 +2,9 @@ package tables.android.models;
 
 public class CustomizationOption {
     private String mName;
-    private double mPrice;
+    private Money mPrice;
 
-    public CustomizationOption(String name, double price) {
+    public CustomizationOption(String name, Money price) {
         this.mName = name;
         this.mPrice = price;
     }
@@ -13,7 +13,7 @@ public class CustomizationOption {
         return mName;
     }
 
-    public double getPrice() {
+    public Money getPrice() {
         return mPrice;
     }
 
@@ -25,7 +25,7 @@ public class CustomizationOption {
 
     @Override
     public int hashCode() {
-        return mName.hashCode() * 5843 + Double.valueOf(mPrice).hashCode() * 5903;
+        return mName.hashCode() * 5843 + mPrice.hashCode() * 5903;
 
     }
 }

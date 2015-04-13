@@ -57,7 +57,7 @@ public class MenuItemActivity extends BaseActivity {
             ((TextView) findViewById(R.id.menuItemDescriptionTextView)).setText(menuItem.getMenuItemDescription());
         }
 
-        ((TextView) findViewById(R.id.orderPriceTextView)).setText(Double.toString(mOrder.getPrice()));
+        ((TextView) findViewById(R.id.orderPriceTextView)).setText(mOrder.getPrice().toString());
         mCustomizationOptionsRecyclerView = (RecyclerView) findViewById(R.id.customizationOptionsRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mCustomizationOptionsRecyclerView.setLayoutManager(layoutManager);
@@ -67,6 +67,6 @@ public class MenuItemActivity extends BaseActivity {
     }
 
     public void recalculatePrice() {
-        ((TextView) findViewById(R.id.orderPriceTextView)).setText(Double.toString(mOrder.getPrice()));
+        ((TextView) findViewById(R.id.orderPriceTextView)).setText(mOrder.getPrice().toString());
     }
 }

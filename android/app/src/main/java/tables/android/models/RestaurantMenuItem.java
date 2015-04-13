@@ -1,6 +1,5 @@
 package tables.android.models;
 
-import com.parse.Parse;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
@@ -9,13 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import tables.android.models.Consts;
-
 public class RestaurantMenuItem {
     private String id;
     private String menuItemName;
     private String menuItemDescription;
-    private double basePrice;
+    private Money basePrice;
     private ParseFile image;
     private HashMap<CustomizationCategory, ArrayList<CustomizationOption>> mCustomizations;
 
@@ -23,7 +20,7 @@ public class RestaurantMenuItem {
         id = po.getObjectId();
         menuItemName = po.getString("itemName");
         menuItemDescription = po.getString("itemDescription");
-        basePrice = po.getDouble("itemPrice");
+        basePrice = new Money(po.getDouble("itemPrice"));
         image = po.getParseFile("itemImage");
         mCustomizations = new HashMap<>();
 
@@ -36,9 +33,9 @@ public class RestaurantMenuItem {
             CustomizationCategory c = new CustomizationCategory(customizationCategory.getKey(), (boolean) customizationCategory.getValue().get(Consts.IS_MULTI_SELECT_KEY));
             mCustomizations.put(c, new ArrayList<CustomizationOption>());
 
-            for (Map.Entry<String, String> customizationOption : ((HashMap<String, String>)customizationCategory.getValue().get(Consts.OPTIONS_KEY)).entrySet()) {
+            for (Map.Entry<String, String> customizationOption : ((HashMap<String, String>) customizationCategory.getValue().get(Consts.OPTIONS_KEY)).entrySet()) {
                 mCustomizations.get(c).add(
-                        new CustomizationOption(customizationOption.getKey(), Double.parseDouble(customizationOption.getValue())));
+                        new CustomizationOption(customizationOption.getKey(), new Money(Double.parseDouble(customizationOption.getValue()))));
             }
         }
     }
@@ -55,7 +52,7 @@ public class RestaurantMenuItem {
         return menuItemDescription;
     }
 
-    public double getBasePrice() {
+    public Money getBasePrice() {
         return basePrice;
     }
 
@@ -81,7 +78,7 @@ public class RestaurantMenuItem {
     public String[] getCustomizationOptionNames(CustomizationCategory key) {
         ArrayList<String> optionNames = new ArrayList<>();
         for (CustomizationOption option : mCustomizations.get(key)) {
-            optionNames.add(option.getName() + " (" + Double.toString(option.getPrice()) + ")");
+            optionNames.add(option.getName() + " (" + option.getPrice().toString() + ")");
         }
         return optionNames.toArray(new String[optionNames.size()]);
     }
