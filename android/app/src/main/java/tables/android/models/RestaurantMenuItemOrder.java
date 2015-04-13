@@ -7,13 +7,15 @@ import java.util.LinkedHashMap;
 public class RestaurantMenuItemOrder {
 
     private RestaurantMenuItem mMenuItem;
-    private LinkedHashMap<String, ArrayList<CustomizationOption>> mSelectedCustomizations;
+    private LinkedHashMap<CustomizationCategory, ArrayList<CustomizationOption>> mSelectedCustomizations;
 
     public RestaurantMenuItemOrder(RestaurantMenuItem menuItem) {
         mMenuItem = menuItem;
         mSelectedCustomizations = new LinkedHashMap<>();
-        for (String category : menuItem.getCustomizationCategoriesSet()) {
-            mSelectedCustomizations.put(category, new ArrayList<>(Arrays.asList(menuItem.getCustomizationOptions(category).get(0))));
+        for (CustomizationCategory category : menuItem.getCustomizationCategoriesSet()) {
+            // Initialize with first item
+            // mSelectedCustomizations.put(category, new ArrayList<>(Arrays.asList(menuItem.getCustomizationOptions(category).get(0))));
+             mSelectedCustomizations.put(category, new ArrayList<CustomizationOption>());
         }
     }
 
@@ -21,7 +23,7 @@ public class RestaurantMenuItemOrder {
         return mMenuItem;
     }
 
-    public ArrayList<String> getCustomizationCategories() {
+    public ArrayList<CustomizationCategory> getCustomizationCategories() {
         return new ArrayList<>(mSelectedCustomizations.keySet());
     }
 
@@ -39,7 +41,7 @@ public class RestaurantMenuItemOrder {
         return price;
     }
 
-    public void setSelectedCustomizationOptions(String category, ArrayList<CustomizationOption> options){
+    public void setSelectedCustomizationOptions(CustomizationCategory category, ArrayList<CustomizationOption> options){
         mSelectedCustomizations.put(category, options);
     }
 }

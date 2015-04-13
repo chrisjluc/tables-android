@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tables.android.R;
+import tables.android.models.CustomizationCategory;
 import tables.android.models.CustomizationOption;
 import tables.android.models.RestaurantMenuItem;
 import tables.android.models.RestaurantMenuItemOrder;
@@ -52,12 +53,12 @@ public class CustomizationOptionsAdapter extends RecyclerView.Adapter<Customizat
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final String category = mOrder.getCustomizationCategories().get(position);
+        final CustomizationCategory category = mOrder.getCustomizationCategories().get(position);
         ArrayList<CustomizationOption> options = mOrder.getCustomizationSelectedOptionsByIndex(position);
 
         if (category != null) {
             TextView categoryNameTextView = (TextView) holder.mCardView.findViewById(R.id.customizationCategoryTextView);
-            categoryNameTextView.setText(category);
+            categoryNameTextView.setText(category.getName());
         }
 
         if (options != null) {
@@ -81,44 +82,66 @@ public class CustomizationOptionsAdapter extends RecyclerView.Adapter<Customizat
                 final ArrayList<CustomizationOption> selectedOptions = mOrder.getCustomizationSelectedOptionsByIndex(position);
                 final ArrayList<CustomizationOption> options = mMenuItem.getCustomizationOptions(category);
                 String[] optionNames = mMenuItem.getCustomizationOptionNames(category);
-                boolean[] checkedOptions = new boolean[optionNames.length];
-
-                for (int i = 0; i < checkedOptions.length; i++)
-                    checkedOptions[i] = selectedOptions.contains(options.get(i));
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setTitle(category)
-                        .setMultiChoiceItems(optionNames, checkedOptions,
-                                new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int index,
-                                                        boolean isChecked) {
-                                        if (isChecked) {
-                                            selectedOptions.add(options.get(index));
-                                        } else if (selectedOptions.contains(options.get(index))) {
-                                            selectedOptions.remove(options.get(index));
-                                        }
-                                    }
-                                })
-                        .setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                mOrder.setSelectedCustomizationOptions(category, selectedOptions);
-                                self.notifyItemChanged(position);
-                                mActivity.recalculatePrice();
-                            }
-                        })
+                builder.setTitle(category.getName())
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                             }
                         });
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                if (category.isMultiSelect()) {
+                    boolean[] checkedOptions = new boolean[optionNames.length];
+
+                    if (selectedOptions.size() > 0)
+                        for (int i = 0; i < checkedOptions.length; i++)
+                            checkedOptions[i] = selectedOptions.contains(options.get(i));
+
+                    builder.setMultiChoiceItems(optionNames, checkedOptions,
+                            new DialogInterface.OnMultiChoiceClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int index,
+                                                    boolean isChecked) {
+                                    if (isChecked) {
+                                        selectedOptions.add(options.get(index));
+                                    } else if (selectedOptions.contains(options.get(index))) {
+                                        selectedOptions.remove(options.get(index));
+                                    }
+                                }
+                            })
+                            .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    mOrder.setSelectedCustomizationOptions(category, selectedOptions);
+                                    self.notifyItemChanged(position);
+                                    mActivity.recalculatePrice();
+                                }
+                            });
+                } else {
+                    int checkedOptionIndex = -1;
+                    if (selectedOptions.size() > 0)
+                            checkedOptionIndex = options.indexOf(selectedOptions.get(0));
+
+                    builder.setSingleChoiceItems(optionNames, checkedOptionIndex,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int index) {
+                                    selectedOptions.clear();
+                                    selectedOptions.add(options.get(index));
+                                    mOrder.setSelectedCustomizationOptions(category, selectedOptions);
+                                    self.notifyItemChanged(position);
+                                    mActivity.recalculatePrice();
+                                    dialog.dismiss();
+                                }
+                    });
             }
-        });
-    }
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    });
+}
 
     @Override
     public int getItemCount() {
